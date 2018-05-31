@@ -27,4 +27,14 @@ class Staticize
         return self::$instance;
     }
 
+
+    public function start()
+    {
+
+    }
+
+    public function end()
+    {
+
+    }
 }
