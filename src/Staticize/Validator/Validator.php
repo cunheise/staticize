@@ -25,7 +25,7 @@ abstract class Validator
      * @return boolean
      * check if page is valid
      */
-    abstract public function valid();
+    abstract public function isValid();
 
     /**
      * @param Page $page

@@ -33,7 +33,7 @@ class ExpireValidator extends Validator
     /**
      * @return boolean
      */
-    public function valid()
+    public function isValid()
     {
         return time() - filemtime($this->getPage()->getFile()) <= $this->delta;
     }

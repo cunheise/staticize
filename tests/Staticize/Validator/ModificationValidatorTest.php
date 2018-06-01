@@ -24,7 +24,7 @@ class ModificationValidatorTest extends \PHPUnit_Framework_TestCase
             echo '1';
         });
         sleep(2);
-        $this->assertFalse($page->valid());
+        $this->assertFalse($page->isValid());
         unlink($file);
     }
 
@@ -37,7 +37,7 @@ class ModificationValidatorTest extends \PHPUnit_Framework_TestCase
         $page->staticize(function () {
             echo '1';
         });
-        $this->assertTrue($page->valid());
+        $this->assertTrue($page->isValid());
         unlink($file);
     }
 }

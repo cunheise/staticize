@@ -75,10 +75,10 @@ class Page
      * @return boolean
      * check if page need to staticize
      */
-    public function valid()
+    public function isValid()
     {
         foreach ($this->validators as $validator) {
-            if (!$validator->valid()) {
+            if (!$validator->isValid()) {
                 return false;
             }
         }
@@ -109,10 +109,33 @@ class Page
         }
         $this->content = ob_get_clean();
         file_put_contents($this->file, $this->content);
-        if ($this->filemtime != null) {
+        if ($this->filemtime) {
             touch($this->getFile(), $this->filemtime);
         }
         return $this;
     }
 
+    /**
+     * @return $this|Page
+     * output buffer start
+     */
+    public function start()
+    {
+        ob_start();
+        return $this;
+    }
+
+    /**
+     * @return $this|Page
+     * get content from output buffer and save it in $this->file and clean it
+     */
+    public function end()
+    {
+        $this->content = ob_get_clean();
+        file_put_contents($this->file, $this->content);
+        if ($this->filemtime) {
+            touch($this->getFile(), $this->filemtime);
+        }
+        return $this;
+    }
 }

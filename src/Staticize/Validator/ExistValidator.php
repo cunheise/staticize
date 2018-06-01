@@ -18,7 +18,7 @@ class ExistValidator extends Validator
     /**
      * @return boolean
      */
-    public function valid()
+    public function isValid()
     {
         return file_exists($this->getPage()->getFile());
     }

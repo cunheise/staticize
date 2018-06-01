@@ -11,14 +11,24 @@ use Staticize\Validator\ModificationValidator;
 
 require __DIR__ . '/vendor/autoload.php';
 $time = time();
-$page = new Page(__DIR__ . '/test/test.html', $time);
+$file1 = __DIR__ . '/output/file1.html';
+$file2 = __DIR__ . '/output/file2.html';
+$page = new Page($file1, $time);
 $page->addValidator(new ModificationValidator($time));
-if (!$page->valid()) {
+if (!$page->isValid()) {
     $a = 'this is test' . PHP_EOL;
-    $b = 'test 2 h';
+    $b = 'test line 2' . PHP_EOL;
     $page->staticize(function () use ($a, $b) {
         echo $a;
         echo $b;
     });
+}
+echo $page->getContent();
+
+$page = new Page($file2);
+if (!$page->isValid()) {
+    $page->start();
+    echo 'haha' . PHP_EOL;
+    $page->end();
 }
 echo $page->getContent();

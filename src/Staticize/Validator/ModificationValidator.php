@@ -31,7 +31,7 @@ class ModificationValidator extends Validator
     /**
      * @return boolean
      */
-    public function valid()
+    public function isValid()
     {
         return $this->filemtime == filemtime($this->getPage()->getFile());
     }

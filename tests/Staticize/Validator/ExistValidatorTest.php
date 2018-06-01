@@ -19,7 +19,7 @@ class ExistValidatorTest extends \PHPUnit_Framework_TestCase
         $file = __DIR__ . '/test.html';
         $page = new Page($file);
         $page->addValidator(new ExistValidator());
-        $this->assertFalse($page->valid());
+        $this->assertFalse($page->isValid());
     }
 
     public function testTrueValid()
@@ -27,11 +27,11 @@ class ExistValidatorTest extends \PHPUnit_Framework_TestCase
         $file = __DIR__ . '/test.html';
         $page = new Page($file);
         $page->addValidator(new ExistValidator());
-        $this->assertFalse($page->valid());
+        $this->assertFalse($page->isValid());
         $page->staticize(function () {
             echo '1';
         });
-        $this->assertTrue($page->valid());
+        $this->assertTrue($page->isValid());
         unlink($file);
     }
 }
