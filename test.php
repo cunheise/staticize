@@ -6,13 +6,13 @@
  * Time: 7:09 PM
  */
 
-use Staticize\ModifyPage;
+use Staticize\Page;
 use Staticize\Validator\ModifyTimeValidator;
 
 require __DIR__ . '/vendor/autoload.php';
 $time = time();
 echo $time . PHP_EOL;
-$page = new ModifyPage(__DIR__ . '/output/test.html', $time);
+$page = new Page(__DIR__ . '/output/test.html', $time);
 $page->addValidator(new ModifyTimeValidator($page, '1527857125'));
 if (!$page->valid()) {
     $a = 'this is test' . PHP_EOL;

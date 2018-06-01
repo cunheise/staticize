@@ -29,14 +29,21 @@ class Page
      * @var array $validators
      */
     private $validators = [];
+    /**
+     * @var integer $modifyTime
+     */
+    private $modifyTime;
 
     /**
      * Page constructor.
      * @param string $file
      */
-    public function __construct($file)
+    public function __construct($file, $modifyTime)
     {
         $this->file = $file;
+        if (is_null($modifyTime)) {
+            $this->modifyTime = time();
+        }
         $this->addValidator(new FileExistValidator($this));
     }
 
@@ -100,6 +107,7 @@ class Page
         }
         $this->content = ob_get_clean();
         file_put_contents($this->file, $this->content);
+        touch($this->getFile(), $this->modifyTime);
         return $this;
     }
 

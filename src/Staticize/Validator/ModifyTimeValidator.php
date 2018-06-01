@@ -8,7 +8,7 @@
 
 namespace Staticize\Validator;
 
-use Staticize\ModifyPage;
+use Staticize\Page;
 
 /**
  * Class ModifyTimeValidator
@@ -18,7 +18,7 @@ use Staticize\ModifyPage;
 class ModifyTimeValidator implements Validator
 {
     /**
-     * @var ModifyPage $page
+     * @var Page $page
      */
     private $page;
     /**
@@ -28,10 +28,10 @@ class ModifyTimeValidator implements Validator
 
     /**
      * ModifyTimeValidator constructor.
-     * @param ModifyPage $page
+     * @param Page $page
      * @param integer $modifyTime
      */
-    public function __construct(ModifyPage $page, $modifyTime)
+    public function __construct(Page $page, $modifyTime)
     {
         $this->page = $page;
         $this->modifyTime = $modifyTime;
