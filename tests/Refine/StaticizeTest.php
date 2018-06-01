@@ -6,7 +6,7 @@
  * Time: 18:04
  */
 
-namespace Test\Refine;
+namespace Tests\Refine;
 
 use Refine\Staticize;
 
