@@ -15,12 +15,8 @@ use Staticize\Page;
  * @package Staticize\Validator
  * check if generated page modify time expired
  */
-class ExpireValidator implements Validator
+class ExpireValidator extends Validator
 {
-    /**
-     * @var Page $page
-     */
-    private $page;
     /**
      * @var integer $delta
      */
@@ -28,13 +24,11 @@ class ExpireValidator implements Validator
 
     /**
      * ExpireValidator constructor.
-     * @param Page $page
      * @param integer $delta
      * default 1 hour
      */
-    public function __construct(Page $page, $delta = 3600)
+    public function __construct($delta = 3600)
     {
-        $this->page = $page;
         $this->delta = $delta;
     }
 
@@ -43,6 +37,6 @@ class ExpireValidator implements Validator
      */
     public function valid()
     {
-        return time() - filemtime($this->page->getFile()) <= $this->delta;
+        return time() - filemtime($this->getPage()->getFile()) <= $this->delta;
     }
 }

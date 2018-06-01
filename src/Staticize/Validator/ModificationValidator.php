@@ -13,28 +13,22 @@ use Staticize\Page;
 /**
  * Class ModifyTimeValidator
  * @package Staticize\Validator
- *
  */
-class ModifyTimeValidator implements Validator
+class ModificationValidator extends Validator
 {
     /**
-     * @var Page $page
+     * @var integer $filemtime
      */
-    private $page;
-    /**
-     * @var integer $modifyTime
-     */
-    private $modifyTime;
+    private $filemtime;
 
     /**
      * ModifyTimeValidator constructor.
      * @param Page $page
-     * @param integer $modifyTime
+     * @param integer $filemtime
      */
-    public function __construct(Page $page, $modifyTime)
+    public function __construct($filemtime)
     {
-        $this->page = $page;
-        $this->modifyTime = $modifyTime;
+        $this->filemtime = $filemtime;
     }
 
     /**
@@ -42,6 +36,6 @@ class ModifyTimeValidator implements Validator
      */
     public function valid()
     {
-        return $this->modifyTime == filemtime($this->page->getFile());
+        return $this->filemtime == filemtime($this->getPage()->getFile());
     }
 }

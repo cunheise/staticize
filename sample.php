@@ -7,13 +7,12 @@
  */
 
 use Staticize\Page;
-use Staticize\Validator\ModifyTimeValidator;
+use Staticize\Validator\ModificationValidator;
 
 require __DIR__ . '/vendor/autoload.php';
 $time = time();
-echo $time . PHP_EOL;
-$page = new Page(__DIR__ . '/output/test.html', $time);
-$page->addValidator(new ModifyTimeValidator($page, '1527857125'));
+$page = new Page(__DIR__ . '/test/test.html', $time);
+$page->addValidator(new ModificationValidator($time));
 if (!$page->valid()) {
     $a = 'this is test' . PHP_EOL;
     $b = 'test 2 h';

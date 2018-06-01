@@ -8,7 +8,7 @@
 
 namespace Staticize;
 
-use Staticize\Validator\FileExistValidator;
+use Staticize\Validator\ExistValidator;
 use Staticize\Validator\Validator;
 
 /**
@@ -30,21 +30,22 @@ class Page
      */
     private $validators = [];
     /**
-     * @var integer $modifyTime
+     * @var integer $filemtime
      */
-    private $modifyTime;
+    private $filemtime;
 
     /**
      * Page constructor.
      * @param string $file
      */
-    public function __construct($file, $modifyTime)
+    public function __construct($file, $filemtime = null)
     {
-        $this->file = $file;
-        if (is_null($modifyTime)) {
-            $this->modifyTime = time();
+        if (!file_exists($dir = dirname($file))) {
+            mkdir($dir, 0777, 1);
         }
-        $this->addValidator(new FileExistValidator($this));
+        $this->file = $file;
+        $this->filemtime = $filemtime;
+        $this->addValidator(new ExistValidator($this));
     }
 
     /**
@@ -64,6 +65,7 @@ class Page
     {
         $className = get_class($validator);
         if (!isset($this->validators[$className])) {
+            $validator->setPage($this);
             $this->validators[$className] = $validator;
         }
         return $this;
@@ -107,7 +109,9 @@ class Page
         }
         $this->content = ob_get_clean();
         file_put_contents($this->file, $this->content);
-        touch($this->getFile(), $this->modifyTime);
+        if ($this->filemtime != null) {
+            touch($this->getFile(), $this->filemtime);
+        }
         return $this;
     }
 

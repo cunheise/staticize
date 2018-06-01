@@ -8,15 +8,40 @@
 
 namespace Staticize\Validator;
 
+use Staticize\Page;
+
 /**
  * Interface Validator
  * @package Staticize\Validator
  */
-interface Validator
+abstract class Validator
 {
+    /**
+     * @var Page $page
+     */
+    private $page;
+
     /**
      * @return boolean
      * check if page is valid
      */
-    public function valid();
+    abstract public function valid();
+
+    /**
+     * @param Page $page
+     * @return $this|Validator
+     */
+    public function setPage(Page $page)
+    {
+        $this->page = $page;
+        return $this;
+    }
+
+    /**
+     * @return Page
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
 }

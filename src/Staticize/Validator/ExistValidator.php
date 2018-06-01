@@ -15,28 +15,14 @@ use Staticize\Page;
  * @package Staticize\Validator
  * check if generated page exist
  */
-class FileExistValidator implements Validator
+class ExistValidator extends Validator
 {
-    /**
-     * @var Page $page
-     */
-    private $page;
-
-    /**
-     * FileExistValidator constructor.
-     * @param Page $page
-     */
-    public function __construct(Page $page)
-    {
-        $this->page = $page;
-    }
-
     /**
      * @return boolean
      */
     public function valid()
     {
-        return file_exists($this->page->getFile());
+        return file_exists($this->getPage()->getFile());
     }
 
 }
