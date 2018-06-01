@@ -8,8 +8,6 @@
 
 namespace Staticize\Validator;
 
-use Staticize\Page;
-
 /**
  * Class FileExistValidator
  * @package Staticize\Validator

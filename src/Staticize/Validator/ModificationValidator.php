@@ -8,8 +8,6 @@
 
 namespace Staticize\Validator;
 
-use Staticize\Page;
-
 /**
  * Class ModifyTimeValidator
  * @package Staticize\Validator
@@ -23,7 +21,6 @@ class ModificationValidator extends Validator
 
     /**
      * ModifyTimeValidator constructor.
-     * @param Page $page
      * @param integer $filemtime
      */
     public function __construct($filemtime)
