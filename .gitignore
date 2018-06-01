@@ -1,2 +1,4 @@
 /.idea/*
 /vendor/*
+/output/*
+!/output/.gitkeep
