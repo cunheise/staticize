@@ -8,30 +8,27 @@
 
 namespace Tests\Staticize\Validator;
 
-use Staticize\Page;
 use Staticize\Validator\ExistValidator;
 
-class ExistValidatorTest extends \PHPUnit_Framework_TestCase
+class ExistValidatorTest extends BaseValidatorTest
 {
 
     public function testFalseValid()
     {
-        $file = __DIR__ . '/test.html';
-        $page = new Page($file);
-        $page->addValidator(new ExistValidator());
-        $this->assertFalse($page->isValid());
+        $this->page->addValidator(new ExistValidator());
+        $this->assertFalse($this->page->isValid());
     }
 
+    /**
+     * @depends testFalseValid
+     */
     public function testTrueValid()
     {
-        $file = __DIR__ . '/test.html';
-        $page = new Page($file);
-        $page->addValidator(new ExistValidator());
-        $this->assertFalse($page->isValid());
-        $page->staticize(function () {
+        $this->page->enclose(function () {
             echo '1';
         });
-        $this->assertTrue($page->isValid());
-        unlink($file);
+        $this->assertTrue($this->page->isValid());
+        unlink($this->file);
     }
+
 }

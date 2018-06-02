@@ -22,30 +22,41 @@ class Page
      */
     private $file;
     /**
-     * @var string $content
-     */
-    private $content;
-    /**
      * @var array $validators
      */
     private $validators = [];
     /**
-     * @var integer $filemtime
+     * @var integer $mtime
      */
-    private $filemtime;
+    private $mtime;
+    /**
+     * @var OutputBuffer $outputBuffer
+     */
+    private $outputBuffer;
 
     /**
      * Page constructor.
      * @param string $file
      */
-    public function __construct($file, $filemtime = null)
+    public function __construct($file, $mtime = null)
     {
         if (!file_exists($dir = dirname($file))) {
             mkdir($dir, 0777, 1);
         }
         $this->file = $file;
-        $this->filemtime = $filemtime;
+        $this->mtime = $mtime;
         $this->addValidator(new ExistValidator($this));
+        $this->outputBuffer = new OutputBuffer();
+    }
+
+    /**
+     * @param integer $mtime
+     * @return $this|Page
+     */
+    public function setMtime($mtime)
+    {
+        $this->mtime = $mtime;
+        return $this;
     }
 
     /**
@@ -90,52 +101,38 @@ class Page
      */
     public function getContent()
     {
-        if ($this->content == null) {
-            $this->content = file_get_contents($this->file);
-        }
-        return $this->content;
+        return $this->outputBuffer->getContent() ? $this->outputBuffer->getContent() : file_get_contents($this->file);
     }
 
     /**
      * @param callable $function
-     * @return Page $this
-     * staticize page
      */
-    public function staticize($function)
+    public function enclose(callable $function)
     {
-        ob_start();
-        if (is_callable($function)) {
-            $function();
+        $this->outputBuffer->enclose($function);
+        file_put_contents($this->file, $this->outputBuffer->getContent());
+        if ($this->mtime) {
+            touch($this->getFile(), $this->mtime);
         }
-        $this->content = ob_get_clean();
-        file_put_contents($this->file, $this->content);
-        if ($this->filemtime) {
-            touch($this->getFile(), $this->filemtime);
-        }
-        return $this;
     }
 
     /**
-     * @return $this|Page
-     * output buffer start
+     *
      */
     public function start()
     {
-        ob_start();
-        return $this;
+        $this->outputBuffer->start();
     }
 
     /**
-     * @return $this|Page
-     * get content from output buffer and save it in $this->file and clean it
+     *
      */
     public function end()
     {
-        $this->content = ob_get_clean();
-        file_put_contents($this->file, $this->content);
-        if ($this->filemtime) {
-            touch($this->getFile(), $this->filemtime);
+        $this->outputBuffer->end();
+        file_put_contents($this->file, $this->outputBuffer->getContent());
+        if ($this->mtime) {
+            touch($this->getFile(), $this->mtime);
         }
-        return $this;
     }
 }

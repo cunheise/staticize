@@ -19,10 +19,11 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $file = __DIR__ . '/test.html';
         $page = new Page($file);
         $a = 'this is test';
-        $page->staticize(function () use ($a) {
+        $page->enclose(function () use ($a) {
             echo $a . PHP_EOL;
             echo 'test2';
         });
+        $this->assertTrue(file_exists($file));
         $this->assertEquals('this is test' . PHP_EOL . 'test2', $page->getContent());
         unlink($file);
     }

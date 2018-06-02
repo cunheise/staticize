@@ -15,17 +15,17 @@ namespace Staticize\Validator;
 class ModificationValidator extends Validator
 {
     /**
-     * @var integer $filemtime
+     * @var integer $mtime
      */
-    private $filemtime;
+    private $mtime;
 
     /**
      * ModifyTimeValidator constructor.
-     * @param integer $filemtime
+     * @param integer $mtime
      */
-    public function __construct($filemtime)
+    public function __construct($mtime)
     {
-        $this->filemtime = $filemtime;
+        $this->mtime = $mtime;
     }
 
     /**
@@ -33,6 +33,6 @@ class ModificationValidator extends Validator
      */
     public function isValid()
     {
-        return $this->filemtime == filemtime($this->getPage()->getFile());
+        return $this->mtime == filemtime($this->getPage()->getFile());
     }
 }

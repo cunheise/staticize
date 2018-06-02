@@ -18,7 +18,7 @@ $page->addValidator(new ModificationValidator($time));
 if (!$page->isValid()) {
     $a = 'this is test' . PHP_EOL;
     $b = 'test line 2' . PHP_EOL;
-    $page->staticize(function () use ($a, $b) {
+    $page->enclose(function () use ($a, $b) {
         echo $a;
         echo $b;
     });

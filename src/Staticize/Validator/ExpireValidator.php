@@ -16,18 +16,18 @@ namespace Staticize\Validator;
 class ExpireValidator extends Validator
 {
     /**
-     * @var integer $delta
+     * @var integer $expireAfter
      */
-    private $delta;
+    private $expireAfter;
 
     /**
      * ExpireValidator constructor.
-     * @param integer $delta
+     * @param integer $expireAfter
      * default 1 hour
      */
-    public function __construct($delta = 3600)
+    public function __construct($expireAfter = 3600)
     {
-        $this->delta = $delta;
+        $this->expireAfter = $expireAfter;
     }
 
     /**
@@ -35,6 +35,6 @@ class ExpireValidator extends Validator
      */
     public function isValid()
     {
-        return time() - filemtime($this->getPage()->getFile()) <= $this->delta;
+        return time() - filemtime($this->getPage()->getFile()) <= $this->expireAfter;
     }
 }
