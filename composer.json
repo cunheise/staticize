@@ -1,0 +1,14 @@
+{
+  "require-dev": {
+    "phpunit/phpunit": "^5.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Staticize\\": "src/Staticize",
+      "Tests\\": "tests"
+    }
+  },
+  "require": {
+    "symfony/cache": "^3.4"
+  }
+}
