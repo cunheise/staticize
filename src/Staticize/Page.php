@@ -42,7 +42,7 @@ class Page
             $cache = new FilesystemCache();
         }
         $this->cache = $cache;
-        $this->pagename = $pagename;
+        $this->pagename = md5($pagename);
     }
 
     /**
