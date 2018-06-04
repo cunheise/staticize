@@ -4,6 +4,10 @@ Staticize
 ## install
 composer require staticize/staticize
 
+Have Question or Feedback?
+--------------------------
+if you have any question or feedback, contact me Q:26441530 or cunheise [at] 163.com
+
 ## sample
 
 ### bootstrap.php file
@@ -39,3 +43,10 @@ composer require staticize/staticize
         echo 'enclose page test';
     });
     echo $container['page'];
+
+License
+-------
+
+Copyright 2008-2018.
+
+Licensed under the [GNU Lesser General Public License, Version 3.0](https://www.gnu.org/licenses/lgpl.txt)
