@@ -27,6 +27,19 @@ class PageTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function pagename()
+    {
+        $page = new Page('http://www.baidu.com', new FilesystemCache('', 1, dirname(dirname(__DIR__)) . '/runtime'));
+        $this->assertEquals('', $page->getContent());
+        $page->enclose(function () {
+            echo '1';
+        });
+        $this->assertEquals('1', $page->getContent());
+    }
+
+    /**
+     * @test
+     */
     public function enclose()
     {
         $this->assertEquals('', $this->page->getContent());
