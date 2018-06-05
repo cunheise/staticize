@@ -7,7 +7,9 @@
  */
 require __DIR__ . '/bootstrap.php';
 $container['pagename'] = 'start_end.html';
-$container['page']->start();
-echo 'start end page';
-$container['page']->end();
+if ($container['page']->isValid()) {
+    $container['page']->start();
+    echo 'start end page';
+    $container['page']->end();
+}
 echo $container['page'];

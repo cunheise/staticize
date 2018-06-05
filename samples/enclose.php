@@ -7,7 +7,9 @@
  */
 require __DIR__ . '/bootstrap.php';
 $container['pagename'] = 'enclose.html';
-$container['page']->enclose(function () {
-    echo 'enclose page test';
-});
+if (!$container['page']->isValid()) {
+    $container['page']->enclose(function () {
+        echo 'enclose page test';
+    });
+}
 echo $container['page'];

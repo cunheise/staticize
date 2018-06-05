@@ -30,10 +30,11 @@ class PageTest extends \PHPUnit_Framework_TestCase
     public function pagename()
     {
         $page = new Page('http://www.baidu.com', new FilesystemCache('', 1, dirname(dirname(__DIR__)) . '/runtime'));
-        $this->assertEquals('', $page->getContent());
+        $this->assertFalse($page->isValid());
         $page->enclose(function () {
             echo '1';
         });
+        $this->assertTrue($page->isValid());
         $this->assertEquals('1', $page->getContent());
     }
 
@@ -42,10 +43,11 @@ class PageTest extends \PHPUnit_Framework_TestCase
      */
     public function enclose()
     {
-        $this->assertEquals('', $this->page->getContent());
+        $this->assertFalse($this->page->isValid());
         $this->page->enclose(function () {
             echo '1';
         });
+        $this->assertTrue($this->page->isValid());
         $this->assertEquals(1, $this->page->getContent());
     }
 
@@ -54,10 +56,11 @@ class PageTest extends \PHPUnit_Framework_TestCase
      */
     public function start_and_end()
     {
-        $this->assertEquals('', $this->page->getContent());
+        $this->assertFalse($this->page->isValid());
         $this->page->start();
         echo '1';
         $this->page->end();
+        $this->assertTrue($this->page->isValid());
         $this->assertEquals(1, $this->page->getContent());
     }
 

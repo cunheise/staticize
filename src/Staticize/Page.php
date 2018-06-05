@@ -8,7 +8,7 @@
 
 namespace Staticize;
 
-use Symfony\Component\Cache\Simple\AbstractCache;
+use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 
 /**
@@ -22,7 +22,7 @@ class Page
      */
     private $outputBuffer;
     /**
-     * @var AbstractCache $cache
+     * @var CacheInterface $cache
      */
     private $cache;
     /**
@@ -33,9 +33,9 @@ class Page
     /**
      * Page constructor.
      * @param string $pagename
-     * @param AbstractCache|null $cache
+     * @param CacheInterface|null $cache
      */
-    public function __construct($pagename, AbstractCache $cache = null)
+    public function __construct($pagename, CacheInterface $cache = null)
     {
         $this->outputBuffer = new OutputBuffer();
         if ($cache == null) {
@@ -96,6 +96,15 @@ class Page
     public function delete()
     {
         $this->cache->delete($this->pagename);
+    }
+
+    /**
+     * @return bool
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function isValid()
+    {
+        return (bool)$this->getContent();
     }
 
 }
