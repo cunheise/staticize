@@ -32,17 +32,21 @@ if you have any question or feedback, contact me Q:26441530 or cunheise [at] 163
 ### start_end.php sample file
     require __DIR__ . '/bootstrap.php';
     $container['pagename'] = 'start_end.html';
-    $container['page']->enclose(function () {
-        echo 'enclose page test';
-    });
+    if (!$container['page']->isValid()) {
+        $container['page']->start();
+        echo 'start end page';
+        $container['page']->end();
+    }
     echo $container['page'];
     
 ### enclose.php sample file
     require __DIR__ . '/bootstrap.php';
     $container['pagename'] = 'enclose.html';
-    $container['page']->enclose(function () {
-        echo 'enclose page test';
-    });
+    if (!$container['page']->isValid()) {
+        $container['page']->enclose(function () {
+            echo 'enclose page test';
+        });
+    }
     echo $container['page'];
 
 License
