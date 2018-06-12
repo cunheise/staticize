@@ -3,7 +3,7 @@ Staticize
 This is library can put php output buffer content into cache like redis, memcache, filesystem, and so on.
 
 ## install
-composer require staticize/staticize
+    composer require staticize/staticize
 
 Have Question or Feedback?
 --------------------------
